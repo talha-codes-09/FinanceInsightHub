@@ -1,8 +1,178 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- Hero Section -->
+<div class="hero-section text-center">
+    <div class="container py-5">
+        <span class="badge rounded-pill bg-primary-subtle text-primary px-3 py-2 mb-3 fw-semibold">
+            Smarter money management
+        </span>
+
+        <h1 class="display-4 fw-bold mb-3">
+            Manage Your Finances <span class="text-gradient">Smarter</span>
+        </h1>
+
+        <p class="lead text-muted mx-auto" style="max-width: 640px;">
+            Track your income and expenses, monitor savings goals,
+            analyze spending habits, and gain valuable financial
+            insights—all in one place.
+        </p>
+
+        <div class="mt-4">
+            <a href="#" class="btn btn-primary btn-lg me-3 px-4 shadow-sm">
+                Get Started
+            </a>
+            <a href="#" class="btn btn-outline-secondary btn-lg px-4">
+                Learn More
+            </a>
+        </div>
+
+        <!-- Stats bar -->
+        <div class="row justify-content-center mt-5 g-4">
+            <div class="col-6 col-md-3">
+                <h3 class="fw-bold mb-0">12K+</h3>
+                <p class="text-muted small mb-0">Active users</p>
+            </div>
+            <div class="col-6 col-md-3">
+                <h3 class="fw-bold mb-0">$2.4M</h3>
+                <p class="text-muted small mb-0">Tracked monthly</p>
+            </div>
+            <div class="col-6 col-md-3">
+                <h3 class="fw-bold mb-0">98%</h3>
+                <p class="text-muted small mb-0">Goal success rate</p>
+            </div>
+            <div class="col-6 col-md-3">
+                <h3 class="fw-bold mb-0">4.9/5</h3>
+                <p class="text-muted small mb-0">Average rating</p>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- Features Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Our Features</h2>
+            <p class="text-muted">
+                Everything you need to manage your finances efficiently.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Card 1 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card feature-card border-0 rounded-4 h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-circle bg-primary-subtle text-primary mb-3">
+                            <i class="bi bi-wallet2"></i>
+                        </div>
+                        <h5 class="fw-bold">Expense Tracking</h5>
+                        <p class="text-muted mb-0">
+                            Track your daily income and expenses efficiently.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card feature-card border-0 rounded-4 h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-circle bg-success-subtle text-success mb-3">
+                            <i class="bi bi-bar-chart-line"></i>
+                        </div>
+                        <h5 class="fw-bold">Financial Analytics</h5>
+                        <p class="text-muted mb-0">
+                            Visualize your financial data with interactive charts.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card feature-card border-0 rounded-4 h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-circle bg-warning-subtle text-warning mb-3">
+                            <i class="bi bi-bullseye"></i>
+                        </div>
+                        <h5 class="fw-bold">Savings Goals</h5>
+                        <p class="text-muted mb-0">
+                            Set and monitor your monthly savings targets.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card feature-card border-0 rounded-4 h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-circle bg-danger-subtle text-danger mb-3">
+                            <i class="bi bi-lightbulb"></i>
+                        </div>
+                        <h5 class="fw-bold">Budget Insights</h5>
+                        <p class="text-muted mb-0">
+                            Receive personalized recommendations to improve your budgeting.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-5 text-center text-white">
+    <div class="container">
+        <h2 class="fw-bold mb-3">Ready to take control of your finances?</h2>
+        <p class="mb-4 opacity-75">
+            Join thousands of users already saving smarter with Finance Insight Hub.
+        </p>
+        <a href="#" class="btn btn-light btn-lg px-4 fw-semibold">
+            Get Started for Free
+        </a>
+    </div>
+</section>
+
+<style>
+    .hero-section {
+        background: linear-gradient(180deg, #eef4ff 0%, #ffffff 100%);
+    }
+
+    .text-gradient {
+        background: linear-gradient(90deg, #0d6efd, #6f42c1);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .icon-circle {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        font-size: 1.5rem;
+    }
+
+    .feature-card {
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+    .cta-section {
+        background: linear-gradient(90deg, #0d6efd, #6f42c1);
+        border-radius: 24px;
+        margin: 0 1rem;
+    }
+</style>
