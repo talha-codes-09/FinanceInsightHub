@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace FinanceInsightHub.Models
 {
@@ -7,24 +6,22 @@ namespace FinanceInsightHub.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Title is required")]
         [StringLength(100)]
-        public string Title { get; set; } = string.Empty;
+        public string Title { get; set; }
 
-        [Required]
-        [Range(0.01, 100000000)]
+        [Required(ErrorMessage = "Amount is required")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "Amount must be greater than 0")]
         public decimal Amount { get; set; }
 
         [Required]
-        public string Category { get; set; } = string.Empty;
-
-        [Required]
-        public string TransactionType { get; set; } = string.Empty;
-
         [DataType(DataType.Date)]
         public DateTime Date { get; set; } = DateTime.Now;
 
-        [StringLength(250)]
-        public string? Notes { get; set; }
+        [Required(ErrorMessage = "Category is required")]
+        public string Category { get; set; }
+
+        [Required(ErrorMessage = "Transaction Type is required")]
+        public string Type { get; set; } // "Income" or "Expense"
     }
 }

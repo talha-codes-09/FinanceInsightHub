@@ -3,8 +3,8 @@
 }
 
 <!-- Hero Section -->
-<div class="hero-section text-center">
-    <div class="container py-5">
+<div class="hero-section">
+    <div class="container py-5 text-center">
         <span class="badge rounded-pill bg-primary-subtle text-primary px-3 py-2 mb-3 fw-semibold">
             Smarter money management
         </span>
@@ -19,33 +19,13 @@
             insights—all in one place.
         </p>
 
-        <div class="mt-4">
-            <a href="#" class="btn btn-primary btn-lg me-3 px-4 shadow-sm">
+        <div class="mt-4 d-flex gap-3 justify-content-center flex-wrap">
+            <a href="#" class="btn btn-primary btn-lg px-4 shadow-sm">
                 Get Started
             </a>
             <a href="#" class="btn btn-outline-secondary btn-lg px-4">
                 Learn More
             </a>
-        </div>
-
-        <!-- Stats bar -->
-        <div class="row justify-content-center mt-5 g-4">
-            <div class="col-6 col-md-3">
-                <h3 class="fw-bold mb-0">12K+</h3>
-                <p class="text-muted small mb-0">Active users</p>
-            </div>
-            <div class="col-6 col-md-3">
-                <h3 class="fw-bold mb-0">$2.4M</h3>
-                <p class="text-muted small mb-0">Tracked monthly</p>
-            </div>
-            <div class="col-6 col-md-3">
-                <h3 class="fw-bold mb-0">98%</h3>
-                <p class="text-muted small mb-0">Goal success rate</p>
-            </div>
-            <div class="col-6 col-md-3">
-                <h3 class="fw-bold mb-0">4.9/5</h3>
-                <p class="text-muted small mb-0">Average rating</p>
-            </div>
         </div>
     </div>
 </div>
@@ -63,8 +43,8 @@
         <div class="row g-4">
             <!-- Card 1 -->
             <div class="col-md-6 col-lg-3">
-                <div class="card feature-card border-0 rounded-4 h-100">
-                    <div class="card-body text-center p-4">
+                <div class="card feature-card border-0 rounded-4 h-100 reveal">
+                    <div class="card-body text-center p-4 d-flex flex-column align-items-center">
                         <div class="icon-circle bg-primary-subtle text-primary mb-3">
                             <i class="bi bi-wallet2"></i>
                         </div>
@@ -78,8 +58,8 @@
 
             <!-- Card 2 -->
             <div class="col-md-6 col-lg-3">
-                <div class="card feature-card border-0 rounded-4 h-100">
-                    <div class="card-body text-center p-4">
+                <div class="card feature-card border-0 rounded-4 h-100 reveal">
+                    <div class="card-body text-center p-4 d-flex flex-column align-items-center">
                         <div class="icon-circle bg-success-subtle text-success mb-3">
                             <i class="bi bi-bar-chart-line"></i>
                         </div>
@@ -93,8 +73,8 @@
 
             <!-- Card 3 -->
             <div class="col-md-6 col-lg-3">
-                <div class="card feature-card border-0 rounded-4 h-100">
-                    <div class="card-body text-center p-4">
+                <div class="card feature-card border-0 rounded-4 h-100 reveal">
+                    <div class="card-body text-center p-4 d-flex flex-column align-items-center">
                         <div class="icon-circle bg-warning-subtle text-warning mb-3">
                             <i class="bi bi-bullseye"></i>
                         </div>
@@ -108,8 +88,8 @@
 
             <!-- Card 4 -->
             <div class="col-md-6 col-lg-3">
-                <div class="card feature-card border-0 rounded-4 h-100">
-                    <div class="card-body text-center p-4">
+                <div class="card feature-card border-0 rounded-4 h-100 reveal">
+                    <div class="card-body text-center p-4 d-flex flex-column align-items-center">
                         <div class="icon-circle bg-danger-subtle text-danger mb-3">
                             <i class="bi bi-lightbulb"></i>
                         </div>
@@ -137,42 +117,28 @@
     </div>
 </section>
 
-<style>
-    .hero-section {
-        background: linear-gradient(180deg, #eef4ff 0%, #ffffff 100%);
-    }
-
-    .text-gradient {
-        background: linear-gradient(90deg, #0d6efd, #6f42c1);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-    }
-
-    .icon-circle {
-        width: 56px;
-        height: 56px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto;
-        font-size: 1.5rem;
-    }
-
-    .feature-card {
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-        .feature-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-        }
-
-    .cta-section {
-        background: linear-gradient(90deg, #0d6efd, #6f42c1);
-        border-radius: 24px;
-        margin: 0 1rem;
-    }
-</style>
+<!-- Stats Section (moved to end of page) -->
+<section class="py-5">
+    <div class="container">
+        <div class="stats-card reveal">
+            <div class="row g-4 text-center">
+                <div class="col-6 col-md-3">
+                    <h3 class="fw-bold mb-0 stat-number" data-target="12" data-suffix="K+">0</h3>
+                    <p class="text-muted small mb-0">Active users</p>
+                </div>
+                <div class="col-6 col-md-3">
+                    <h3 class="fw-bold mb-0 stat-number" data-target="2.4" data-prefix="$" data-suffix="M">$0</h3>
+                    <p class="text-muted small mb-0">Tracked monthly</p>
+                </div>
+                <div class="col-6 col-md-3">
+                    <h3 class="fw-bold mb-0 stat-number" data-target="98" data-suffix="%">0</h3>
+                    <p class="text-muted small mb-0">Goal success rate</p>
+                </div>
+                <div class="col-6 col-md-3">
+                    <h3 class="fw-bold mb-0 stat-number" data-target="4.9" data-suffix="/5">0</h3>
+                    <p class="text-muted small mb-0">Average rating</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

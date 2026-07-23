@@ -10,7 +10,6 @@ namespace FinanceInsightHub.Data
         {
         }
 
-        // Transaction table
         public DbSet<Transaction> Transactions { get; set; }
     }
 }

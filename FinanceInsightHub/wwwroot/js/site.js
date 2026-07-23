@@ -52,6 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function animateCounter(el) {
         const target = el.getAttribute("data-target");
+        const prefix = el.getAttribute("data-prefix") || "";
         const suffix = el.getAttribute("data-suffix") || "";
         const numericTarget = parseFloat(target);
         const duration = 1200;
@@ -63,12 +64,12 @@ document.addEventListener("DOMContentLoaded", function () {
             const current = (numericTarget * eased).toFixed(
                 numericTarget % 1 !== 0 ? 1 : 0
             );
-            el.textContent = current + suffix;
+            el.textContent = prefix + current + suffix;
 
             if (progress < 1) {
                 requestAnimationFrame(step);
             } else {
-                el.textContent = numericTarget + suffix;
+                el.textContent = prefix + numericTarget + suffix;
             }
         }
 

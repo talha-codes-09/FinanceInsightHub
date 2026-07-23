@@ -14,9 +14,14 @@ h2, h4 {
     font-weight: 600;
 }
 
+/* ===== Section rhythm ===== */
+section {
+    scroll-margin-top: 80px;
+}
+
 /* ===== Hero ===== */
 .hero-section {
-    padding: 90px 0 70px;
+    padding: 70px 0 40px;
     background: linear-gradient(180deg, #eef4ff 0%, #f8f9fb 100%);
     position: relative;
     overflow: hidden;
@@ -40,6 +45,18 @@ h2, h4 {
     color: transparent;
 }
 
+/* ===== Stats card (hero, right column) ===== */
+.stats-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 40px 32px;
+    box-shadow: 0 16px 40px rgba(13, 110, 253, 0.1);
+}
+
+.stat-number {
+    font-size: 1.8rem;
+}
+
 /* ===== Buttons ===== */
 .btn-lg {
     padding: 12px 30px;
@@ -60,12 +77,6 @@ h2, h4 {
 
 .btn-outline-secondary.btn-lg:hover {
     transform: translateY(-2px);
-}
-
-/* ===== Stat counters ===== */
-.stat-number {
-    font-weight: 700;
-    font-size: 1.8rem;
 }
 
 /* ===== Feature cards ===== */
@@ -127,5 +138,19 @@ h2, h4 {
 .cta-section {
     background: linear-gradient(90deg, #0d6efd, #6f42c1);
     border-radius: 24px;
-    margin: 0 1rem;
+    margin: 40px 1rem 0;
+    padding: 20px 0;
+}
+
+/* ===== Footer =====
+   IMPORTANT: renamed from the old ".footer" class to ".site-footer" on purpose.
+   The default ASP.NET Core template's site.css defines:
+       .footer { position: absolute; bottom: 0; width: 100%; ... }
+   If that rule still exists anywhere in your project (old site.css, or
+   FinanceInsightHub.styles.css), it pins anything with class "footer" to the
+   bottom of the *viewport*, which is what caused the footer text to overlap
+   your hero buttons. Renaming the class sidesteps that collision entirely. */
+.site-footer {
+    border-top: 1px solid #e6e9ef;
+    position: static;
 }
