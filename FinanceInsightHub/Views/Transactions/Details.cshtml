@@ -1,0 +1,31 @@
+﻿@model FinanceInsightHub.Models.Transaction
+
+@{
+    ViewData["Title"] = "Transaction Details";
+}
+
+<h2 class="fw-bold mb-4">Transaction Details</h2>
+
+<div class="card border-0 rounded-4 p-4" style="max-width: 600px;">
+    <dl class="row mb-0">
+        <dt class="col-sm-4">Title</dt>
+        <dd class="col-sm-8">@Model.Title</dd>
+
+        <dt class="col-sm-4">Amount</dt>
+        <dd class="col-sm-8">@Model.Amount.ToString("C")</dd>
+
+        <dt class="col-sm-4">Date</dt>
+        <dd class="col-sm-8">@Model.Date.ToString("MMMM dd, yyyy")</dd>
+
+        <dt class="col-sm-4">Category</dt>
+        <dd class="col-sm-8">@Model.Category</dd>
+
+        <dt class="col-sm-4">Type</dt>
+        <dd class="col-sm-8">@Model.Type</dd>
+    </dl>
+</div>
+
+<div class="mt-4">
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary px-4">Edit</a>
+    <a asp-action="Index" class="btn btn-outline-secondary px-4">Back to List</a>
+</div>

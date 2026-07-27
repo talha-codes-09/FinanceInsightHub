@@ -1,0 +1,51 @@
+﻿@model IEnumerable<FinanceInsightHub.Models.Transaction>
+
+@{
+    ViewData["Title"] = "Transactions";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold">Transactions</h2>
+    <a asp-action="Create" class="btn btn-primary rounded-pill px-4">+ Add Transaction</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table align-middle">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Type</th>
+                <th>Date</th>
+                <th class="text-end">Amount</th>
+                <th class="text-end">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.Category</td>
+                    <td>
+                        <span class="badge rounded-pill @(item.Type == "Income" ? "bg-success-subtle text-success" : "bg-danger-subtle text-danger")">
+                            @item.Type
+                        </span>
+                    </td>
+                    <td>@item.Date.ToString("MMM dd, yyyy")</td>
+                    <td class="text-end fw-semibold">@item.Amount.ToString("C")</td>
+                    <td class="text-end">
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">View</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (!Model.Any())
+{
+    <p class="text-muted text-center py-4">No transactions yet — add your first one above.</p>
+}
