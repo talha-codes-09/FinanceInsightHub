@@ -1,4 +1,5 @@
-﻿@model FinanceInsightHub.Controllers.DashboardViewModel
+﻿@using System.Text.Json
+@model FinanceInsightHub.Controllers.DashboardViewModel
 
 @{
     ViewData["Title"] = "Dashboard";
@@ -71,6 +72,22 @@
             </div>
             <p class="text-muted small mb-1">Transactions</p>
             <h3 class="fw-bold mb-0">@Model.TransactionCount</h3>
+        </div>
+    </div>
+</div>
+
+<!-- Charts -->
+<div class="row g-4 mb-4">
+    <div class="col-lg-5">
+        <div class="card border-0 rounded-4 p-4 shadow-sm h-100">
+            <h5 class="fw-bold mb-3">Expenses by Category</h5>
+            <canvas id="categoryPieChart"></canvas>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="card border-0 rounded-4 p-4 shadow-sm h-100">
+            <h5 class="fw-bold mb-3">Income vs Expense (Last 6 Months)</h5>
+            <canvas id="incomeExpenseBarChart"></canvas>
         </div>
     </div>
 </div>
@@ -189,3 +206,45 @@
         flex-shrink: 0;
     }
 </style>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+        const categoryLabels = @Html.Raw(Json.Serialize(Model.CategoryBreakdown.Select(c => c.Category)));
+        const categoryData = @Html.Raw(Json.Serialize(Model.CategoryBreakdown.Select(c => c.Total)));
+
+        new Chart(document.getElementById('categoryPieChart'), {
+        type: 'doughnut',
+        data: {
+        labels: categoryLabels,
+        datasets: [{
+        data: categoryData,
+        backgroundColor: ['#0d6efd', '#6f42c1', '#20c997', '#fd7e14', '#dc3545'],
+        borderWidth: 0
+        }]
+        },
+        options: {
+        plugins: { legend: { position: 'bottom' } }
+        }
+        });
+
+        const monthLabels = @Html.Raw(Json.Serialize(Model.MonthlyLabels));
+        const incomeData = @Html.Raw(Json.Serialize(Model.MonthlyIncome));
+        const expenseData = @Html.Raw(Json.Serialize(Model.MonthlyExpenses));
+
+        new Chart(document.getElementById('incomeExpenseBarChart'), {
+        type: 'bar',
+        data: {
+        labels: monthLabels,
+        datasets: [
+        { label: 'Income', data: incomeData, backgroundColor: '#198754', borderRadius: 6 },
+        { label: 'Expenses', data: expenseData, backgroundColor: '#dc3545', borderRadius: 6 }
+        ]
+        },
+        options: {
+        plugins: { legend: { position: 'bottom' } },
+        scales: { y: { beginAtZero: true } }
+        }
+        });
+    </script>
+}

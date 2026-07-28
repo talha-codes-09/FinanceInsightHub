@@ -14,6 +14,11 @@ namespace FinanceInsightHub.Controllers
         public decimal TopCategoryAmount { get; set; }
         public List<CategorySummary> CategoryBreakdown { get; set; } = new();
         public List<Transaction> RecentTransactions { get; set; } = new();
+
+        // Chart data
+        public List<string> MonthlyLabels { get; set; } = new();
+        public List<decimal> MonthlyIncome { get; set; } = new();
+        public List<decimal> MonthlyExpenses { get; set; } = new();
     }
 
     public class CategorySummary
