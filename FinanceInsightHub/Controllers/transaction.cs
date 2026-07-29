@@ -16,30 +16,44 @@ namespace FinanceInsightHub.Controllers
         }
 
         // GET: Transactions
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchTitle, string category, string type, DateTime? startDate, DateTime? endDate)
         {
-            var transactions = await _context.Transactions
-                .OrderByDescending(t => t.Date)
-                .ToListAsync();
+            var query = _context.Transactions.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(searchTitle))
+            {
+                query = query.Where(t => t.Title.Contains(searchTitle));
+            }
+
+            if (!string.IsNullOrWhiteSpace(category))
+            {
+                query = query.Where(t => t.Category == category);
+            }
+
+            if (!string.IsNullOrWhiteSpace(type))
+            {
+                query = query.Where(t => t.Type == type);
+            }
+
+            if (startDate.HasValue)
+            {
+                query = query.Where(t => t.Date >= startDate.Value);
+            }
+
+            if (endDate.HasValue)
+            {
+                query = query.Where(t => t.Date <= endDate.Value);
+            }
+
+            var transactions = await query.OrderByDescending(t => t.Date).ToListAsync();
+
+            ViewBag.SearchTitle = searchTitle;
+            ViewBag.Category = category;
+            ViewBag.Type = type;
+            ViewBag.StartDate = startDate?.ToString("yyyy-MM-dd");
+            ViewBag.EndDate = endDate?.ToString("yyyy-MM-dd");
+
             return View(transactions);
-        }
-
-        // GET: Transactions/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null) return NotFound();
-
-            var transaction = await _context.Transactions
-                .FirstOrDefaultAsync(t => t.Id == id);
-            if (transaction == null) return NotFound();
-
-            return View(transaction);
-        }
-
-        // GET: Transactions/Create
-        public IActionResult Create()
-        {
-            return View();
         }
 
         // POST: Transactions/Create
