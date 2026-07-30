@@ -16,7 +16,7 @@ namespace FinanceInsightHub.Controllers
         }
 
         // GET: Transactions
-        public async Task<IActionResult> Index(string searchTitle, string category, string type, DateTime? startDate, DateTime? endDate)
+        public async Task<IActionResult> Index(string searchTitle, string category, string type, DateTime? startDate, DateTime? endDate, string sortBy, string sortOrder = "desc", int page = 1)
         {
             var query = _context.Transactions.AsQueryable();
 
@@ -45,15 +45,55 @@ namespace FinanceInsightHub.Controllers
                 query = query.Where(t => t.Date <= endDate.Value);
             }
 
-            var transactions = await query.OrderByDescending(t => t.Date).ToListAsync();
+            // Sorting
+            bool asc = sortOrder == "asc";
+            query = sortBy switch
+            {
+                "amount" => asc ? query.OrderBy(t => t.Amount) : query.OrderByDescending(t => t.Amount),
+                "category" => asc ? query.OrderBy(t => t.Category) : query.OrderByDescending(t => t.Category),
+                _ => asc ? query.OrderBy(t => t.Date) : query.OrderByDescending(t => t.Date),
+            };
+
+            // Pagination
+            const int pageSize = 10;
+            var totalCount = await query.CountAsync();
+            var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+            page = Math.Max(1, Math.Min(page, Math.Max(totalPages, 1)));
+
+            var transactions = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
 
             ViewBag.SearchTitle = searchTitle;
             ViewBag.Category = category;
             ViewBag.Type = type;
             ViewBag.StartDate = startDate?.ToString("yyyy-MM-dd");
             ViewBag.EndDate = endDate?.ToString("yyyy-MM-dd");
+            ViewBag.SortBy = sortBy;
+            ViewBag.SortOrder = sortOrder;
+            ViewBag.Page = page;
+            ViewBag.TotalPages = totalPages;
 
             return View(transactions);
+        }
+
+        // GET: Transactions/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var transaction = await _context.Transactions
+                .FirstOrDefaultAsync(t => t.Id == id);
+            if (transaction == null) return NotFound();
+
+            return View(transaction);
+        }
+
+        // GET: Transactions/Create
+        public IActionResult Create()
+        {
+            return View();
         }
 
         // POST: Transactions/Create
