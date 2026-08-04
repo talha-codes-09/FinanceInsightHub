@@ -11,5 +11,7 @@ namespace FinanceInsightHub.Data
         }
 
         public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Budget> Budgets { get; set; }
+        public DbSet<SavingsGoal> SavingsGoals { get; set; }
     }
 }

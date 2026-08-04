@@ -1,0 +1,62 @@
+﻿@model List<FinanceInsightHub.Controllers.BudgetViewModel>
+
+@{
+    ViewData["Title"] = "Budgets";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold mb-1">Budgets</h2>
+        <p class="text-muted mb-0">Track spending against your monthly limits — @DateTime.Now.ToString("MMMM yyyy").</p>
+    </div>
+    <a asp-action="Create" class="btn btn-primary rounded-pill px-4">+ Set Budget</a>
+</div>
+
+<div class="row g-4">
+    @foreach (var b in Model)
+    {
+        var isOverBudget = b.Remaining < 0;
+        <div class="col-md-6 col-lg-4">
+            <div class="card border-0 rounded-4 p-4 shadow-sm h-100">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h5 class="fw-bold mb-0">@b.Category</h5>
+                    <div>
+                        <a asp-action="Edit" asp-route-id="@b.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
+                        <form asp-action="Delete" asp-route-id="@b.Id" method="post" class="d-inline" onsubmit="return confirm('Delete this budget?');">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+
+                <p class="text-muted small mb-2">
+                    @b.Spent.ToString("C") of @b.MonthlyLimit.ToString("C") spent
+                </p>
+
+                <div class="progress mb-3" style="height: 10px; border-radius: 6px;">
+                    <div class="progress-bar @(isOverBudget ? "bg-danger" : b.PercentUsed >= 80 ? "bg-warning" : "bg-success")"
+                         role="progressbar"
+                         style="width: @(Math.Min(b.PercentUsed, 100))%; border-radius: 6px;">
+                    </div>
+                </div>
+
+                <p class="fw-semibold mb-0 @(isOverBudget ? "text-danger" : "text-success")">
+                    @if (isOverBudget)
+                    {
+                        <text>Over by @Math.Abs(b.Remaining).ToString("C")</text>
+                    }
+                    else
+                    {
+                        <text>@b.Remaining.ToString("C") remaining</text>
+                    }
+                </p>
+            </div>
+        </div>
+    }
+</div>
+
+@if (!Model.Any())
+{
+    <p class="text-muted text-center py-4">
+        No budgets set for this month yet — <a asp-action="Create">create one</a> to start tracking.
+    </p>
+}

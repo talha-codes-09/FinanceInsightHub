@@ -1,0 +1,52 @@
+﻿@model FinanceInsightHub.Models.SavingsGoal
+
+@{
+    ViewData["Title"] = "Edit Savings Goal";
+}
+
+<h2 class="fw-bold mb-4">Edit Savings Goal</h2>
+
+<div class="card border-0 rounded-4 p-4 shadow-sm" style="max-width: 500px;">
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label fw-semibold">Goal Name <span class="text-danger">*</span></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger small"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="TargetAmount" class="form-label fw-semibold">Target Amount <span class="text-danger">*</span></label>
+            <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input asp-for="TargetAmount" class="form-control" />
+            </div>
+            <span asp-validation-for="TargetAmount" class="text-danger small"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="SavedAmount" class="form-label fw-semibold">Saved Amount</label>
+            <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input asp-for="SavedAmount" class="form-control" />
+            </div>
+            <span asp-validation-for="SavedAmount" class="text-danger small"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="TargetDate" class="form-label fw-semibold">Target Date (optional)</label>
+            <input asp-for="TargetDate" class="form-control" type="date" />
+        </div>
+
+        <button type="submit" class="btn btn-primary px-4">Save Changes</button>
+        <a asp-action="Index" class="btn btn-outline-secondary px-4">Cancel</a>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

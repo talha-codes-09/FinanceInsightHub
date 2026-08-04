@@ -1,0 +1,72 @@
+﻿@model List<FinanceInsightHub.Models.SavingsGoal>
+
+@{
+    ViewData["Title"] = "Savings Goals";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold">Savings Goals</h2>
+    <a asp-action="Create" class="btn btn-primary rounded-pill px-4">+ New Goal</a>
+</div>
+
+<div class="row g-4">
+    @foreach (var g in Model)
+    {
+        <div class="col-md-6 col-lg-4">
+            <div class="card border-0 rounded-4 p-4 shadow-sm h-100">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h5 class="fw-bold mb-0">@g.Name</h5>
+                    @if (g.IsCompleted)
+                    {
+                        <span class="badge rounded-pill bg-success-subtle text-success">
+                            <i class="bi bi-check-circle"></i> Completed
+                        </span>
+                    }
+                </div>
+
+                @if (g.TargetDate.HasValue)
+                {
+                    <p class="text-muted small mb-2">Target date: @g.TargetDate.Value.ToString("MMM dd, yyyy")</p>
+                }
+
+                <p class="text-muted small mb-2">
+                    @g.SavedAmount.ToString("C") of @g.TargetAmount.ToString("C")
+                </p>
+
+                <div class="progress mb-3" style="height: 10px; border-radius: 6px;">
+                    <div class="progress-bar @(g.IsCompleted ? "bg-success" : "bg-primary")"
+                         role="progressbar"
+                         style="width: @g.ProgressPercent%; border-radius: 6px;">
+                    </div>
+                </div>
+
+                <p class="fw-semibold mb-3">@g.ProgressPercent% complete</p>
+
+                @if (!g.IsCompleted)
+                {
+                    <form asp-action="AddFunds" asp-route-id="@g.Id" method="post" class="d-flex gap-2 mb-3">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text">$</span>
+                            <input type="number" name="amount" step="0.01" min="0.01" class="form-control" placeholder="Add funds" required />
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-outline-primary">Add</button>
+                    </form>
+                }
+
+                <div class="d-flex gap-2 mt-auto">
+                    <a asp-action="Edit" asp-route-id="@g.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
+                    <form asp-action="Delete" asp-route-id="@g.Id" method="post" onsubmit="return confirm('Delete this goal?');">
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (!Model.Any())
+{
+    <p class="text-muted text-center py-4">
+        No savings goals yet — <a asp-action="Create">create one</a> to start tracking.
+    </p>
+}

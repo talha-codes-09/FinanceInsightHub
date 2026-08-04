@@ -3,6 +3,7 @@ using System;
 using FinanceInsightHub.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FinanceInsightHub.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260731151148_SyncBudgetsModel")]
+    partial class SyncBudgetsModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.10");
@@ -39,30 +42,6 @@ namespace FinanceInsightHub.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Budgets");
-                });
-
-            modelBuilder.Entity("FinanceInsightHub.Models.SavingsGoal", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("SavedAmount")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("TargetAmount")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("TargetDate")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SavingsGoals");
                 });
 
             modelBuilder.Entity("FinanceInsightHub.Models.Transaction", b =>
