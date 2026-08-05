@@ -1,6 +1,136 @@
-﻿namespace FinanceInsightHub.Views.Reports
-{
-    public class Index
-    {
-    }
+﻿@model FinanceInsightHub.Controllers.ReportViewModel
+
+@{
+    ViewData["Title"] = "Reports";
+    var monthName = new DateTime(Model.Year, Model.Month, 1).ToString("MMMM yyyy");
 }
+
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+    <h2 class="fw-bold mb-0">Reports &mdash; @monthName</h2>
+
+    <form method="get" class="d-flex gap-2">
+        <select name="month" class="form-select" onchange="this.form.submit()">
+            @for (int m = 1; m <= 12; m++)
+            {
+                <option value="@m" selected="@(m == Model.Month)">@(new DateTime(2000, m, 1).ToString("MMMM"))</option>
+            }
+        </select>
+        <select name="year" class="form-select" onchange="this.form.submit()">
+            @for (int y = DateTime.Now.Year - 2; y <= DateTime.Now.Year; y++)
+            {
+                <option value="@y" selected="@(y == Model.Year)">@y</option>
+            }
+        </select>
+    </form>
+</div>
+
+<!-- Summary -->
+<div class="row g-4 mb-4">
+    <div class="col-md-4">
+        <div class="card border-0 rounded-4 p-4 shadow-sm">
+            <p class="text-muted small mb-1">Total Income</p>
+            <h3 class="fw-bold text-success mb-0">@Model.TotalIncome.ToString("C")</h3>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 rounded-4 p-4 shadow-sm">
+            <p class="text-muted small mb-1">Total Expenses</p>
+            <h3 class="fw-bold text-danger mb-0">@Model.TotalExpenses.ToString("C")</h3>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 rounded-4 p-4 shadow-sm">
+            <p class="text-muted small mb-1">Net Savings</p>
+            <h3 class="fw-bold mb-0 @(Model.NetSavings >= 0 ? "text-primary" : "text-danger")">@Model.NetSavings.ToString("C")</h3>
+        </div>
+    </div>
+</div>
+
+<!-- Category-wise summary -->
+<div class="card border-0 rounded-4 p-4 shadow-sm mb-4">
+    <h5 class="fw-bold mb-3">Category-wise Expense Summary</h5>
+    @if (Model.CategorySummary.Any())
+    {
+        <table class="table align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Transactions</th>
+                    <th class="text-end">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var c in Model.CategorySummary)
+                {
+                    <tr>
+                        <td>@c.Category</td>
+                        <td>@c.Count</td>
+                        <td class="text-end fw-semibold">@c.Total.ToString("C")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="text-muted mb-0">No expenses recorded for @monthName.</p>
+    }
+</div>
+
+<div class="row g-4">
+    <!-- Income report -->
+    <div class="col-lg-6">
+        <div class="card border-0 rounded-4 p-4 shadow-sm h-100">
+            <h5 class="fw-bold mb-3">Income Report</h5>
+            @if (Model.IncomeTransactions.Any())
+            {
+                <table class="table align-middle mb-0">
+                    <tbody>
+                        @foreach (var t in Model.IncomeTransactions)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="fw-semibold">@t.Title</div>
+                                    <div class="text-muted small">@t.Date.ToString("MMM dd")</div>
+                                </td>
+                                <td class="text-end fw-semibold text-success">+@t.Amount.ToString("C")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p class="text-muted mb-0">No income recorded for @monthName.</p>
+            }
+        </div>
+    </div>
+
+    <!-- Expense report -->
+    <div class="col-lg-6">
+        <div class="card border-0 rounded-4 p-4 shadow-sm h-100">
+            <h5 class="fw-bold mb-3">Expense Report</h5>
+            @if (Model.ExpenseTransactions.Any())
+            {
+                <table class="table align-middle mb-0">
+                    <tbody>
+                        @foreach (var t in Model.ExpenseTransactions)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="fw-semibold">@t.Title</div>
+                                    <div class="text-muted small">@t.Category · @t.Date.ToString("MMM dd")</div>
+                                </td>
+                                <td class="text-end fw-semibold text-danger">-@t.Amount.ToString("C")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p class="text-muted mb-0">No expenses recorded for @monthName.</p>
+            }
+        </div>
+    </div>
+</div>
